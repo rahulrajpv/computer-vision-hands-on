@@ -1,25 +1,28 @@
-#import the necessary packages
+import pywt
 import numpy as np
 import cv2
 
 # Load the image
-img = cv2.imread(r"C:\Users\rahul\OneDrive\Pictures\sample03.jpg",0)
+img = cv2.imread(r"C:\Users\rahul\OneDrive\Pictures\sample03.jpg", 0)
 
-# Define the Gabor filter parameters
-ksize = 31  # kernel size
-sigma = 5  # standard deviation of Gaussian envelope
-theta = np.pi / 4  # orientation of the normal to the parallel stripes of a Gabor function
-lambd = 10  # wavelength of the sinusoidal factor
-gamma = 0.5  # spatial aspect ratio
+# Resize the image to a new width and height
+width = 500 # new width in pixels
+height = 300 # new height in pixels
+resized_img = cv2.resize(img, (width, height)) # resize the image
 
-# Create the Gabor filter kernel
-kernel = cv2.getGaborKernel((ksize, ksize), sigma, theta, lambd, gamma, 0, ktype=cv2.CV_32F) # ktype = cv2.CV_32F for float32   
 
-# Apply the Gabor filter to the image
-filtered = cv2.filter2D(img, cv2.CV_8UC3, kernel) # cv2.CV_8UC3 for float32 to uint8 conversion 
+# Perform the DWT using the 'haar' wavelet
+coeffs = pywt.dwt2(img, 'haar') # returns a tuple of 4 arrays (cA, (cH, cV, cD))
 
-# Display the original and filtered images
-cv2.imshow("Original", img)
-cv2.imshow("Gabor Filtered", filtered)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+# Separate the coefficients into approximation and detail coefficients
+cA, (cH, cV, cD) = coeffs # cA is the approximation coefficients, cH, cV, cD are the detail coefficients
+
+# Display the original image and the DWT coefficients
+cv2.imshow('Original Image', img) # original image
+cv2.imshow('Approximation Coefficients', np.uint8(cA)) # approximation coefficients
+cv2.imshow('Horizontal Detail Coefficients', np.uint8(cH)) # detail coefficients
+cv2.imshow('Vertical Detail Coefficients', np.uint8(cV)) # detail coefficients
+cv2.imshow('Diagonal Detail Coefficients', np.uint8(cD)) # detail coefficients 
+cv2.waitKey(0) # wait for a key press
+cv2.destroyAllWindows() # close all windows
+
