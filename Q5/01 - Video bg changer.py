@@ -1,11 +1,12 @@
 #importing libraries
-import cv2 #for image processing
+import cv2 as cv2#for image processing
 import cvzone #for image processing
 from cvzone.SelfiSegmentationModule import SelfiSegmentation #cvzone.SelfiSegmentationModule is a module that is used to remove the background from an image
 
 # Load the video and the background image
-vid = cv2.VideoCapture("video.mp4") #video.mp4 is the video file
-bg_img = cv2.imread("sample01.jpg") #sample01.jpg is the background image
+# Read input video
+vid = cv2.VideoCapture(r"D:\MTECH\PROJECT\CV\ASSIGNMENT\REPOSITORY\computer-vision-hands-on\Q5\dataset\Sample01.mp4")
+bg_img = cv2.imread(r"D:\MTECH\PROJECT\CV\ASSIGNMENT\REPOSITORY\computer-vision-hands-on\Q5\dataset\Sample03.jpg") #sample01.jpg is the background image
 
 # Get the size of the video frame
 width = int(vid.get(cv2.CAP_PROP_FRAME_WIDTH)) # 1280 pixels wide (width)
