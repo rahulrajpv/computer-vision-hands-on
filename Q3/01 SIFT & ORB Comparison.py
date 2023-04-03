@@ -30,7 +30,7 @@ for transform in transforms:
         pts1 = np.float32([[50, 50], [200, 50], [50, 200]]) # define 3 points in the original image
         pts2 = np.float32([[10, 100], [200, 50], [100, 250]]) # define 3 points in the transformed image
         M = cv2.getAffineTransform(pts1, pts2) 
-        img_transformed = cv2.warpAffine(img, M, (cols, rows)) 
+        img_transformed = cv2.warpAffine(img, M, (cols, rows)) # warped into a new shape using a set of three points
     elif transform == 'perspective':
         rows, cols = img.shape[:2]
         pts1 = np.float32([[56, 65], [368, 52], [28, 387], [389, 390]]) # define 4 points in the original image
