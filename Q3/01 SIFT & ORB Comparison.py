@@ -6,6 +6,10 @@ import numpy as np
 sift = cv2.SIFT_create()
 orb = cv2.ORB_create()
 
+#reading images
+img = cv2.imread(path)
+path = os.path.join(r"C:\Users\reema\Downloads\img.jpg")
+
 # Detect keypoints and compute descriptors using SIFT
 kp_sift, des_sift = sift.detectAndCompute(img, None)
 
